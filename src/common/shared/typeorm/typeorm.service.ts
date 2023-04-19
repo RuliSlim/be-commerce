@@ -9,10 +9,6 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
   private readonly config: ConfigService;
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
-    console.log(
-      JSON.stringify(this.config.get('TYPE') === 'DEV'),
-      '<<<INI TypeOrmConfigService',
-    );
     return {
       type: 'postgres',
       host: this.config.get<string>('DATABASE_HOST'),
@@ -24,7 +20,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
       migrations: ['dist/migrations/*.{ts, js}'],
       migrationsTableName: 'typeorm_migrations',
       logger: 'file',
-      synchronize: this.config.get<string>('TYPE') === 'DEV', //should be disable when prod
+      synchronize: false,
     };
   }
 }
