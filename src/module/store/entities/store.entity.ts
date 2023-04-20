@@ -1,13 +1,7 @@
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  InsertEvent,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Category } from '@entity/category/entities/category';
 import { DefaultColumn } from '@common/shared/entities/default.entity';
+import { Admin } from '@entity/admin/entities/admin';
 
 @Entity('store')
 export class Store extends DefaultColumn {
@@ -19,4 +13,7 @@ export class Store extends DefaultColumn {
 
   @OneToMany(() => Category, (category) => category.store)
   categories: Category[];
+
+  @OneToMany(() => Admin, (admin) => admin.store)
+  admins: Admin[];
 }
