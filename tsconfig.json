@@ -9,7 +9,7 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -19,7 +19,9 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@common/*": ["src/common/*"],
-      "@root/*": ["src/*"],
+      "@entity/*": ["src/module/*.entity"],
+      "@module/*": ["src/module/*.module"],
+      "@root/*": ["src/*.ts"],
     }
   }
 }

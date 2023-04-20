@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppService } from '@root/app.service';
-import { AppController } from '@root/app.controller';
 import { TypeOrmConfigService } from '@common/shared/typeorm/typeorm.service';
 import { getEnvPath } from '@common/helper/env.helper';
-import { ProductModule } from './module/product/product.module';
+
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { CategoryModule, StoreModule } from '@module/index';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/env`);
 
@@ -18,7 +19,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/env`);
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
-    ProductModule,
+    StoreModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

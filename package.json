@@ -20,12 +20,14 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "resource:create": "cross-var npx nest generate resource module/$npm_config_name",
-    "typeorm": "typeorm-ts-node-esm",
     "migration:create": "cross-var npx typeorm migration:create src/common/migration/$npm_config_name",
-    "migration:run": "npm run typeorm -- migration:run -d ormconfig",
-    "migration:drop": "npm run typeorm -- migration:revert -d ormconfig",
-    "db:up": "npm run typeorm schema:sync -d ormconfig",
-    "db:drop": "npm run typeorm schema:drop -d ormconfig"
+    "typeorm": "npm run build && npx typeorm -d dist/ormconfig.js",
+    "migration:gen": "npm run typeorm -- migration:generate",
+    "migration:up": "npm run typeorm -- migration:run",
+    "migration:drop": "npm run typeorm -- migration:revert",
+    "db:up": "createdb ecommerce",
+    "db:sync": "npm run typeorm -- schema:sync",
+    "db:drop": "npm run typeorm -- schema:drop"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
