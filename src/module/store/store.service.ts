@@ -1,15 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { Store } from './entities/store.entity';
+import { StoreRepository } from './repositories/store.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class StoreService {
-  create(createStoreDto: CreateStoreDto) {
-    return 'This action adds a new store';
+  constructor(private readonly storeRepository: StoreRepository) {}
+
+  async create(createStoreDto: CreateStoreDto): Promise<Store> {
+    const store = await this.storeRepository.create(createStoreDto);
+    // this.storeRepository.inser
+    await this.storeRepository.save(store);
+    console.log(store, '?????');
+    // const store1 = new Store();
+    return store;
   }
 
-  findAll() {
-    return `This action returns all store`;
+  async findAll() {
+    // const store = new Store()
+    // console.log(this.storeRepository.remove(store), '<<<');
+    // const coba = await this.storeRepository.coba();
+    const stores: Store[] = await this.storeRepository.find();
+    return stores;
   }
 
   findOne(id: number) {

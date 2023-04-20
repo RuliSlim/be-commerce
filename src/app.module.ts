@@ -7,6 +7,7 @@ import { getEnvPath } from '@common/helper/env.helper';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CategoryModule, StoreModule } from '@module/index';
+import { RequestContextModule } from 'nestjs-request-context';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/env`);
 
@@ -19,6 +20,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/env`);
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
+    RequestContextModule,
     StoreModule,
     CategoryModule,
   ],

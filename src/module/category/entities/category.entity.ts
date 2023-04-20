@@ -1,3 +1,4 @@
+import { DefaultColumn } from '@common/shared/entities/default.entity';
 import { Store } from '@entity/store/entities/store';
 import {
   Column,
@@ -8,10 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Category {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Category extends DefaultColumn {
   @ManyToOne(() => Store, (store) => store.categories)
   store: Store;
 
