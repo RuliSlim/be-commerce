@@ -1,24 +1,27 @@
 import { AdminRole } from '@common/shared/constant/admin.enum';
 import { DefaultColumn } from '@common/shared/entities/default.entity';
 import { Store } from '@entity/store/entities/store';
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export class Admin extends DefaultColumn {
   @Column({
     nullable: false,
-    type: 'string',
+    type: 'varchar',
     unique: true,
   })
+  @ApiProperty({ required: true, nullable: false })
   email: string;
 
-  @Column('string')
+  @Column()
   password: string;
 
-  @Column('string')
+  @Column()
+  @ApiProperty({ required: true, nullable: false })
   name: string;
 
-  @Column({ type: 'string', enum: AdminRole })
+  @Column({ type: 'varchar', enum: AdminRole })
   role: AdminRole;
 
   @OneToMany(() => Store, (store) => store.admins)

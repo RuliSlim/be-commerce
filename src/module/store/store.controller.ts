@@ -6,22 +6,54 @@ import {
   Patch,
   Param,
   Delete,
+  Version,
 } from '@nestjs/common';
 import { StoreService } from './store.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Store } from './entities/store.entity';
 
-@Controller('store')
+@ApiTags('admin.store')
+@Controller('admin/store')
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Post()
-  create(@Body() createStoreDto: CreateStoreDto) {
-    return this.storeService.create(createStoreDto);
+  @ApiOperation({ summary: 'create new record' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'integer',
+          example: 5,
+          description: 'this is unique id',
+        },
+        name: {
+          type: 'string',
+          example: 'test',
+          description: 'this is the name',
+        },
+      },
+    },
+  })
+  @ApiCreatedResponse({ type: Store })
+  create() {
+    return;
+    // return this.storeService.create(createStoreDto);
   }
 
   @Get()
+  @ApiOkResponse({ type: Store, isArray: true })
   findAll() {
+    console.log('masuk sini??');
     return this.storeService.findAll();
   }
 
