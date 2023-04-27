@@ -27,23 +27,6 @@ export class StoreController {
 
   @Post()
   @ApiOperation({ summary: 'create new record' })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        id: {
-          type: 'integer',
-          example: 5,
-          description: 'this is unique id',
-        },
-        name: {
-          type: 'string',
-          example: 'test',
-          description: 'this is the name',
-        },
-      },
-    },
-  })
   @ApiCreatedResponse({ type: Store })
   create() {
     return;

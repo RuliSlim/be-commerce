@@ -18,6 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@helper/*": ["src/common/helper/*.helper"],
       "@common/*": ["src/common/*"],
       "@entity/*": ["src/module/*.entity"],
       "@module/*": ["src/module/*.module"],

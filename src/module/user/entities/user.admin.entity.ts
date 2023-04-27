@@ -1,8 +1,9 @@
 import { AdminRole } from '@common/shared/constant/admin.enum';
 import { DefaultColumn } from '@common/shared/entities/default.entity';
 import { Store } from '@entity/store/entities/store';
+import { BCrypt } from '@helper/bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Admin extends DefaultColumn {
@@ -24,6 +25,12 @@ export class Admin extends DefaultColumn {
   @Column({ type: 'varchar', enum: AdminRole })
   role: AdminRole;
 
-  @OneToMany(() => Store, (store) => store.admins)
+  @ManyToOne(() => Store, (store) => store.admins)
   store: Store;
+
+  @BeforeInsert()
+  async hashingPassword() {
+    const hashedPassword = await BCrypt.hashPassword(this.password);
+    this.password = hashedPassword;
+  }
 }

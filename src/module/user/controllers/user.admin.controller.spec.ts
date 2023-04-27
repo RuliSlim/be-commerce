@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AdminController } from './admin.controller';
-import { AdminService } from './admin.service';
+import { AdminController } from './user.admin.controller';
+import { AdminService } from '../services/user.admin.service';
 
 describe('AdminController', () => {
   let controller: AdminController;

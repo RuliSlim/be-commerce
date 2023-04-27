@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Category } from '@entity/category/entities/category';
 import { DefaultColumn } from '@common/shared/entities/default.entity';
-import { Admin } from '@entity/admin/entities/admin';
+import { Admin } from '@entity/user/entities/user.admin';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('store')

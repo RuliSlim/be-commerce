@@ -11,7 +11,8 @@ import { RequestContextModule } from 'nestjs-request-context';
 // module
 import { StoreModule } from '@module/store/store';
 import { CategoryModule } from '@module/category/category';
-import { AdminModule } from '@module/admin/admin';
+import { AdminModule } from '@module/user/user';
+import { AuthModule } from './module/auth/auth.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/env`);
 
@@ -28,6 +29,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/env`);
     StoreModule,
     CategoryModule,
     AdminModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

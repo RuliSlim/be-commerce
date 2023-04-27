@@ -3,7 +3,6 @@ import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
 import { Store } from './entities/store.entity';
 import { StoreRepository } from './repositories/store.repository';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class StoreService {
@@ -11,10 +10,7 @@ export class StoreService {
 
   async create(createStoreDto: CreateStoreDto): Promise<Store> {
     const store = await this.storeRepository.create(createStoreDto);
-    // this.storeRepository.inser
     await this.storeRepository.save(store);
-    console.log(store, '?????');
-    // const store1 = new Store();
     return store;
   }
 

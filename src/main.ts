@@ -32,7 +32,11 @@ async function bootstrap() {
     .build();
 
   const swagger = SwaggerModule.createDocument(app, document);
-  SwaggerModule.setup('api', app, swagger);
+  SwaggerModule.setup('api', app, swagger, {
+    swaggerOptions: {
+      showCommonExtensions: true,
+    },
+  });
 
   await app.listen(port, () => {
     console.log('server running on: ', config.get<number>('BASE_URL'));
