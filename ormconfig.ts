@@ -9,14 +9,14 @@ dotenv.config({
 
 const dataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
+  host: 'db',
   port: 5432,
   database: 'ecommerce',
   username: 'postgres',
   password: 'postgres',
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/src/common/migration/*.js'],
-  synchronize: false,
+  synchronize: true,
   namingStrategy: new SnakeNamingStrategy(),
 });
 

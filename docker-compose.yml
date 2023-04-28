@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15.2-alpine
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: my-nestjs-app
+    ports:
+      - "3333:3000"
+    volumes:
+      - ./src:/app/src

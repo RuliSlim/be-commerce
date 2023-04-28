@@ -24,7 +24,6 @@ export class AuthService {
       user = await this.adminService.findByEmail(email);
     }
 
-    console.log(await BCrypt.isMatch(password, user.password), 'laah kpo');
     if (user && (await BCrypt.isMatch(password, user.password))) {
       return user;
     }

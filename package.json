@@ -27,7 +27,9 @@
     "migration:drop": "npm run typeorm -- migration:revert",
     "db:up": "createdb ecommerce",
     "db:sync": "npm run typeorm -- schema:sync",
-    "db:drop": "npm run typeorm -- schema:drop"
+    "db:drop": "npm run typeorm -- schema:drop",
+    "docker:build": "docker build -t my-nestjs-app .",
+    "docker:run": ""
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
