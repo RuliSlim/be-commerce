@@ -4,16 +4,16 @@ pipeline {
 	agent any
 
 	stages {
-		// stage('SCM') {
-		// 	steps {
-		// 		// node ('master') {
-		// 		// 	checkout scm
-		// 		// }
-		// 		// script {
-		// 		// 	CURRENT_STAGE=env.STAGE_NAME
-		// 		// }
-		// 	}
-		// }
+		stage('SCM') {
+			steps {
+				checkout scm
+				// 	CURRENT_STAGE=env.STAGE_NAME
+				// node ('master') {
+				// }
+				// script {
+				// }
+			}
+		}
 		// stage('Build image') {   
     //   steps {
     //     // node ('master') {    
