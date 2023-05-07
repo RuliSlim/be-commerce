@@ -4,26 +4,26 @@ pipeline {
 	agent any
 
 	stages {
-		stage('SCM') {
-			steps {
-				// node ('master') {
-				// 	checkout scm
-				// }
-				// script {
-				// 	CURRENT_STAGE=env.STAGE_NAME
-				// }
-			}
-		}
-		stage('Build image') {   
-      steps {
-        // node ('master') {    
-        //   script {       
-        //     CURRENT_STAGE=env.STAGE_NAME
-        //     app = docker.build("${IMAGE_PREFIX}") 
-        //   }   
-        // }
-      }
-    }
+		// stage('SCM') {
+		// 	steps {
+		// 		// node ('master') {
+		// 		// 	checkout scm
+		// 		// }
+		// 		// script {
+		// 		// 	CURRENT_STAGE=env.STAGE_NAME
+		// 		// }
+		// 	}
+		// }
+		// stage('Build image') {   
+    //   steps {
+    //     // node ('master') {    
+    //     //   script {       
+    //     //     CURRENT_STAGE=env.STAGE_NAME
+    //     //     app = docker.build("${IMAGE_PREFIX}") 
+    //     //   }   
+    //     // }
+    //   }
+    // }
 		stage('Push image') {
       steps {
         node ('master') {
