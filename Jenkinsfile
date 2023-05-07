@@ -5,14 +5,14 @@ pipeline {
 
 	stages {
 		stage('SCM') {
-			// steps {
-			// 	node ('master') {
-			// 		checkout scm
-			// 	}
-			// 	script {
-			// 		CURRENT_STAGE=env.STAGE_NAME
-			// 	}
-			// }
+			steps {
+				// node ('master') {
+				// 	checkout scm
+				// }
+				// script {
+				// 	CURRENT_STAGE=env.STAGE_NAME
+				// }
+			}
 		}
 		stage('Build image') {   
       steps {
