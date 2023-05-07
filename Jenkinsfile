@@ -18,8 +18,8 @@ pipeline {
       steps {
 				withCredentials ([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-ecr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
 					sh '''
-						aws --version
-						aws ec2 describe-instances
+						AWS --version
+						AWS ec2 describe-instances
 					'''
 					
 					// sh 'docker login -u AWS -p $(aws ecr get-login-password --region ap-southeast-1) 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com'
