@@ -1,33 +1,27 @@
 def CURRENT_STAGE
-def APPS_NAME    = 'order-service'  //dynamic data
-def IMAGE_PREFIX = "rulislim/${APPS_NAME}"
-def REPO_HELM    = 'bitbucket.org/tech-brik/be-order-helm.git' //dynamic data
-def EMAIL        = 'mohamad.zulfikar@brik.id'
-def USER_NAME    = 'zulfikarwantogia'
-def BRANCH_NAME  = 'master'
 
 pipeline {
 	agent any
 
 	stages {
 		stage('SCM') {
-			steps {
-				node ('master') {
-					checkout scm
-				}
-				script {
-					CURRENT_STAGE=env.STAGE_NAME
-				}
-			}
+			// steps {
+			// 	node ('master') {
+			// 		checkout scm
+			// 	}
+			// 	script {
+			// 		CURRENT_STAGE=env.STAGE_NAME
+			// 	}
+			// }
 		}
 		stage('Build image') {   
       steps {
-        node ('master') {    
-          script {       
-            CURRENT_STAGE=env.STAGE_NAME
-            app = docker.build("${IMAGE_PREFIX}") 
-          }   
-        }
+        // node ('master') {    
+        //   script {       
+        //     CURRENT_STAGE=env.STAGE_NAME
+        //     app = docker.build("${IMAGE_PREFIX}") 
+        //   }   
+        // }
       }
     }
 		stage('Push image') {
