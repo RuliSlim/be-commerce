@@ -3,6 +3,11 @@ def CURRENT_STAGE
 pipeline {
 	agent any
 
+	environment {
+		AWS_DEFAULT_REGION="ap-southeast-1"
+		// THE_BUTLER_SAYS_SO=credentials('aws-ecr') // you can use this rather withCredentials
+	}
+
 	stages {
 		stage('SCM') {
 			steps {
@@ -26,11 +31,16 @@ pipeline {
     // }
 		stage('Push image') {
       steps {
-				withEnv (["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}", "AWS_DEFAULT_REGION=${env.AWS_DEFAULT_REGION}"]) {
-					sh 'docker login -u AWS -p $(aws ecr get-login-password --region ap-southeast-1) 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com'
-					sh 'docker build -t rulislim .'
-					sh 'docker tag rulislim:latest 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com/rulislim:""$BUILD_ID""'
-					sh 'docker push 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com/rulislim:""$BUILD_ID""'
+				withCredentials ([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-ecr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+					sh '''
+						aws --version
+						aws ec2 describe-instances
+					'''
+					
+					// sh 'docker login -u AWS -p $(aws ecr get-login-password --region ap-southeast-1) 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com'
+					// sh 'docker build -t rulislim .'
+					// sh 'docker tag rulislim:latest 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com/rulislim:""$BUILD_ID""'
+					// sh 'docker push 268531535885.dkr.ecr.ap-southeast-1.amazonaws.com/rulislim:""$BUILD_ID""'
 				}
       }
     }
