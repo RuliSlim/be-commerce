@@ -5,30 +5,14 @@ pipeline {
 
 	environment {
 		AWS_DEFAULT_REGION="ap-southeast-1"
-		// THE_BUTLER_SAYS_SO=credentials('aws-ecr') // you can use this rather withCredentials
 	}
 
 	stages {
 		stage('SCM') {
 			steps {
 				checkout scm
-				// 	CURRENT_STAGE=env.STAGE_NAME
-				// node ('master') {
-				// }
-				// script {
-				// }
 			}
 		}
-		// stage('Build image') {   
-    //   steps {
-    //     // node ('master') {    
-    //     //   script {       
-    //     //     CURRENT_STAGE=env.STAGE_NAME
-    //     //     app = docker.build("${IMAGE_PREFIX}") 
-    //     //   }   
-    //     // }
-    //   }
-    // }
 		stage('Push image') {
       steps {
 				withCredentials ([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-ecr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
