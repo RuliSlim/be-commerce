@@ -1,13 +1,7 @@
-def CURRENT_STAGE
 def MY_IMAGE
-@Library('github.com/releaseworks/jenkinslib') _
 
 pipeline {
 	agent any
-
-	environment {
-		AWS_DEFAULT_REGION="ap-southeast-1"
-	}
 
 	stages {
 		stage('SCM') {
@@ -17,8 +11,10 @@ pipeline {
 		}
 		stage('Build Image') {
 			steps {
-				echo "${env}"
-				MY_IMAGE = docker.build("be-commerce:${env.BUILD_ID}")
+				script {
+					echo "${env}"
+					MY_IMAGE = docker.build("be-commerce:${env.BUILD_ID}")
+				}
 			}
 		}
 		stage('Push image') {
