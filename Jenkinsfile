@@ -1,4 +1,4 @@
-def MY_IMAGE
+def dockerImage
 
 def getCommitSha() {
   sh "git rev-parse HEAD > .git/current-commit"
@@ -51,10 +51,6 @@ pipeline {
 		stage('Push image') {
       steps {
 				script {
-					echo "push image"
-					echo 'CHECK WORKID'
-					sh 'ls'
-					echo '==================='
 					docker.withRegistry(env.REGISTRY_URL, env.UPASS, env.UPASS) {
 						dockerImage.push()
 					}
