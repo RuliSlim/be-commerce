@@ -16,12 +16,12 @@ void setBuildStatus(String message, String state) {
   commitSha = getCommitSha()
 
   step([
-      $class: "GitHubCommitStatusSetter",
-    	reposSource: [$class: "ManuallyEnteredRepositorySource", url: repoUrl],
-			commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
-      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
-      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+		$class: "GitHubCommitStatusSetter",
+		reposSource: [$class: "ManuallyEnteredRepositorySource", url: repoUrl],
+		commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
+		contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+		errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+		statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   ]);
 }
 
@@ -30,6 +30,7 @@ pipeline {
 
 	environment {
 		DIGITALOCEAN_ACCESS_TOKEN=credentials('doctl')
+		REGISTRY_URL = "registry.digitalocean.com/mirror"
 	}
 
 	stages {
@@ -38,23 +39,17 @@ pipeline {
 				checkout scm
 			}
 		}
-		stage('Install Doctl') {
-			steps {
-				sh 'snap install doctl'
-				sh 'doctl sls install'
-			}
-		}
 		stage('Build Image') {
 			steps {
 				script {
 					echo "${env}"
-					MY_IMAGE = docker.build("be-commerce:${env.BUILD_ID}")
+					dockerImage = docker.build("be-commerce:${env.BUILD_ID}")
 				}
 			}
 		}
-		stage('Connect Doctl') {
+		stage('Login Registry') {
 			steps {
-				sh 'doctl sls connect'
+				sh 'doctl registry login'
 			}
 		}
 		stage('Push image') {
@@ -64,11 +59,9 @@ pipeline {
 					echo 'CHECK WORKID'
 					sh 'ls'
 					echo '==================='
-					// docker.withRegistry('https://268531535885.dkr.ecr.ap-southeast-1.amazonaws.com', "ecr:${AWS_DEFAULT_REGION}:aws-ecr") {
-					// 		def customImage = docker.build("test:${env.BUILD_ID}")
-					// 		/* Push the container to the custom Registry */
-					// 		customImage.push()
-					// }
+					docker.withRegistry(REGISTRY_URL) {
+						dockerImage.push()
+					}
 				}
       }
     }
@@ -76,14 +69,10 @@ pipeline {
 
   post {
     success {
-        setBuildStatus("Build succeeded", "SUCCESS");
+			setBuildStatus("Build succeeded", "SUCCESS");
     }
     failure {
-        setBuildStatus("Build failed", "FAILURE");
-    }
-	  always {
-      sh 'doctl sls uninstall'
-			sh 'snap remove doctl'
+			setBuildStatus("Build failed", "FAILURE");
     }
   }
 }
