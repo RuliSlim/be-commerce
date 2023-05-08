@@ -28,10 +28,19 @@ void setBuildStatus(String message, String state) {
 pipeline {
 	agent any
 
+	environment {
+		DIGITALOCEAN_ACCESS_TOKEN=credentials('doctl')
+	}
+
 	stages {
 		stage('SCM') {
 			steps {
 				checkout scm
+			}
+		}
+		stage('Install Doctl') {
+			steps {
+				sh 'doctl sls install'
 			}
 		}
 		stage('Build Image') {
@@ -42,10 +51,18 @@ pipeline {
 				}
 			}
 		}
+		stage('Connect Doctl') {
+			steps {
+				sh 'doctl sls connect'
+			}
+		}
 		stage('Push image') {
       steps {
 				script {
 					echo "push image"
+					echo 'CHECK WORKID'
+					sh 'ls'
+					echo '==================='
 					// docker.withRegistry('https://268531535885.dkr.ecr.ap-southeast-1.amazonaws.com', "ecr:${AWS_DEFAULT_REGION}:aws-ecr") {
 					// 		def customImage = docker.build("test:${env.BUILD_ID}")
 					// 		/* Push the container to the custom Registry */
