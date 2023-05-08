@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Install app dependencies
 COPY package*.json ./
-RUN yarn install
+RUN npm install
 # RUN npm install bcrypt
 
 # Rebuild docker
