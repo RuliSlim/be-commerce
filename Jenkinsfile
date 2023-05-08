@@ -1,4 +1,4 @@
-def MY_IMAGE
+def dockerImage
 
 def getCommitSha() {
   sh "git rev-parse HEAD > .git/current-commit"
