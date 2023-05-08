@@ -2,7 +2,6 @@ def MY_IMAGE
 
 pipeline {
 	agent any
-
 	stages {
 		stage('SCM') {
 			steps {
