@@ -40,6 +40,7 @@ pipeline {
 		}
 		stage('Install Doctl') {
 			steps {
+				sh 'sudo snap install doctl'
 				sh 'doctl sls install'
 			}
 		}
@@ -79,6 +80,10 @@ pipeline {
     }
     failure {
         setBuildStatus("Build failed", "FAILURE");
+    }
+		always {
+      sh 'doctl sls uninstall'
+			sh 'snap remove doctl'
     }
   }
 }
