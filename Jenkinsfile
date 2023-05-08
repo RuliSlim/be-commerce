@@ -29,7 +29,6 @@ pipeline {
 	agent any
 
 	environment {
-		DIGITALOCEAN_ACCESS_TOKEN=credentials('doctl')
 		REGISTRY_URL = "registry.digitalocean.com/mirror"
 		UPASS = credentials('digital-ocean')
 	}
