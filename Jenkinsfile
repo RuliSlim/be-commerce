@@ -31,6 +31,7 @@ pipeline {
 	environment {
 		DIGITALOCEAN_ACCESS_TOKEN=credentials('doctl')
 		REGISTRY_URL = "registry.digitalocean.com/mirror"
+		UPASS = credentials('digital-ocean')
 	}
 
 	stages {
@@ -47,11 +48,6 @@ pipeline {
 				}
 			}
 		}
-		stage('Login Registry') {
-			steps {
-				sh 'doctl registry login'
-			}
-		}
 		stage('Push image') {
       steps {
 				script {
@@ -59,7 +55,7 @@ pipeline {
 					echo 'CHECK WORKID'
 					sh 'ls'
 					echo '==================='
-					docker.withRegistry(REGISTRY_URL) {
+					docker.withRegistry(env.REGISTRY_URL, env.UPASS, env.UPASS) {
 						dockerImage.push()
 					}
 				}
