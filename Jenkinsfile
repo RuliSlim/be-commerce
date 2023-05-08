@@ -80,8 +80,5 @@ pipeline {
     failure {
         setBuildStatus("Build failed", "FAILURE");
     }
-		always {
-      sh 'doctl sls uninstall'
-    }
   }
 }
