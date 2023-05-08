@@ -30,4 +30,14 @@ pipeline {
       }
     }
 	}
+
+	post {
+		always {
+				githubStatus context: 'continuous-integration/jenkins', state: 'success'
+				if (env.CHANGE_ID) {
+						githubComment message: "The pipeline completed successfully!"
+						githubLabel labels: ['approved']
+				}
+		}
+	}
 }
