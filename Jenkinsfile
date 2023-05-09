@@ -43,7 +43,7 @@ pipeline {
 			steps {
 				script {
 					dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
-					dockerImage.tag "${env.REGISTRY_URL}/mirror/be-commerce:latest"
+					dockerImage.tag "latest"
 				}
 			}
 		}
