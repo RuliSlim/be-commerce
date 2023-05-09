@@ -29,7 +29,7 @@ pipeline {
 	agent any
 
 	environment {
-		REGISTRY_URL = "registry.digitalocean.com/mirror"
+		REGISTRY_URL = "registry.digitalocean.com"
 		UPASS = credentials('digital-ocean')
 	}
 
@@ -43,14 +43,14 @@ pipeline {
 			steps {
 				script {
 					echo "${env}"
-					dockerImage = docker.build "be-commerce:${env.BUILD_ID}"
+					dockerImage = docker.build "mirror/be-commerce:${env.BUILD_ID}"
 				}
 			}
 		}
 		stage('Push image') {
       steps {
 				script {
-					docker.withRegistry(env.REGISTRY_URL) {
+					docker.withRegistry(env.REGISTRY_URL, env.UPASS) {
 						dockerImage.push()
 					}
 				}
