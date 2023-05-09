@@ -43,6 +43,7 @@ pipeline {
 			steps {
 				script {
 					dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
+					dockerImage.tag "${env.REGISTRY_URL}/mirror/be-commerce:latest"
 				}
 			}
 		}
@@ -50,7 +51,12 @@ pipeline {
       steps {
 				script {
 					sh "docker login registry.digitalocean.com -u ${env.UPASS} -p ${env.UPASS}"
-					sh "docker push ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
+					// sh "docker push ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}-latest"
+					echo "${dockerImage}"
+					echo "${dockerImage.id}"
+					echo "${dockerImage.name}"
+					echo dockerImage.dir()
+					dockerImage.push()
 				}
       }
     }
@@ -63,5 +69,8 @@ pipeline {
     failure {
 			setBuildStatus("Build failed", "FAILURE");
     }
+		always {
+			sh 'docker logout'
+		}
   }
 }
