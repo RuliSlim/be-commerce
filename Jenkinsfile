@@ -50,7 +50,7 @@ pipeline {
       steps {
 				script {
 					sh "docker login registry.digitalocean.com -u ${env.UPASS} -p ${env.UPASS}"
-					sh "docker push ${dockerImage}"
+					sh "docker push ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
 				}
       }
     }
