@@ -43,7 +43,7 @@ pipeline {
 			steps {
 				script {
 					// dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
-					sh "docker build -t ${env.REGISTRY_URL}/mirror/be-commerce:latest -t ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID} ."
+					sh "docker build -t ${env.REGISTRY_URL}/mirror/be-ecommerce:latest -t ${env.REGISTRY_URL}/mirror/be-ecommerce:${env.BUILD_ID} ."
 				}
 			}
 		}
@@ -51,7 +51,7 @@ pipeline {
       steps {
 				script {
 					sh "docker login registry.digitalocean.com -u ${env.UPASS} -p ${env.UPASS}"
-					sh "docker push ${env.REGISTRY_URL}/mirror/be-commerce:latest"
+					sh "docker push ${env.REGISTRY_URL}/mirror/be-ecommerce:latest"
 				}
       }
     }
