@@ -43,7 +43,7 @@ pipeline {
 			steps {
 				script {
 					echo "${env}"
-					dockerImage = docker.build("${env.REGISTRY_URL}/be-commerce:${env.BUILD_ID}")
+					dockerImage = docker.build "be-commerce:${env.BUILD_ID}"
 				}
 			}
 		}
