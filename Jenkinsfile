@@ -42,17 +42,15 @@ pipeline {
 		stage('Build Image') {
 			steps {
 				script {
-					echo "${env}"
+					dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
 				}
 			}
 		}
 		stage('Push image') {
       steps {
 				script {
-					docker.withRegistry(env.REGISTRY_URL, env.UPASS) {
-						dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
-						dockerImage.push()
-					}
+					sh 'docker login registry.digitalocean.com -u $env.UPASS -p $env.UPASS'
+					sh 'docker push $dockerImage'
 				}
       }
     }
