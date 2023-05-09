@@ -43,7 +43,6 @@ pipeline {
 			steps {
 				script {
 					echo "${env}"
-					dockerImage = docker.build "mirror/be-commerce:${env.BUILD_ID}"
 				}
 			}
 		}
@@ -51,6 +50,7 @@ pipeline {
       steps {
 				script {
 					docker.withRegistry(env.REGISTRY_URL, env.UPASS) {
+						dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
 						dockerImage.push()
 					}
 				}
