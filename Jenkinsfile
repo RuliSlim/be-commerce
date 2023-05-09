@@ -64,8 +64,8 @@ pipeline {
 			setBuildStatus("Build failed", "FAILURE");
     }
 		always {
-			sh 'docker logout'
-			// sh 'docker image prune -a --force'
+			sh "docker logout ${env.REGISTRY_URL}"
+			sh "docker rmi ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
 		}
   }
 }
