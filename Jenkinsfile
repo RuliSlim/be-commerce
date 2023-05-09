@@ -23,8 +23,6 @@ void setBuildStatus(String message, String state) {
   ]);
 }
 
-def gitCommit = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-def dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
 
 pipeline {
 	agent any
@@ -34,6 +32,9 @@ pipeline {
 		UPASS = credentials('digital-ocean')
 	}
 
+	def gitCommit = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+	def dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
+	
 	stages {
 		stage('SCM') {
 			steps {
