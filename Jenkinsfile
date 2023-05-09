@@ -55,7 +55,6 @@ pipeline {
 					echo "${dockerImage}"
 					echo "${dockerImage.id}"
 					echo "${dockerImage.name}"
-					echo dockerImage.dir()
 					dockerImage.push()
 				}
       }
