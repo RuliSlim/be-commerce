@@ -1,5 +1,3 @@
-def dockerImage
-
 def getCommitSha() {
   sh "git rev-parse HEAD > .git/current-commit"
   return readFile(".git/current-commit").trim()
@@ -25,6 +23,9 @@ void setBuildStatus(String message, String state) {
   ]);
 }
 
+def gitCommit = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+def dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
+
 pipeline {
 	agent any
 
@@ -42,7 +43,7 @@ pipeline {
 		stage('Build Image') {
 			steps {
 				script {
-					dockerImage = docker.build "${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
+					dockerImage = docker.build "${dockerTag}"
 				}
 			}
 		}
@@ -50,7 +51,7 @@ pipeline {
       steps {
 				script {
 					sh "docker login registry.digitalocean.com -u ${env.UPASS} -p ${env.UPASS}"
-					sh "docker push ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
+					sh "docker push ${dockerTag}"
 				}
       }
     }
@@ -64,8 +65,8 @@ pipeline {
 			setBuildStatus("Build failed", "FAILURE");
     }
 		always {
+			sh "docker rmi ${dockerTag}"
 			sh "docker logout ${env.REGISTRY_URL}"
-			sh "docker rmi ${env.REGISTRY_URL}/mirror/be-commerce:${env.BUILD_ID}"
 		}
   }
 }
