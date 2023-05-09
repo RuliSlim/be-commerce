@@ -50,7 +50,7 @@ pipeline {
 		stage('Push image') {
       steps {
 				script {
-					docker.withRegistry(env.REGISTRY_URL, env.UPASS) {
+					docker.withRegistry(env.REGISTRY_URL) {
 						dockerImage.push()
 					}
 				}
