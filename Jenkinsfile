@@ -49,8 +49,8 @@ pipeline {
 		stage('Push image') {
       steps {
 				script {
-					sh 'docker login registry.digitalocean.com -u $env.UPASS -p $env.UPASS'
-					sh 'docker push $dockerImage'
+					sh "docker login registry.digitalocean.com -u ${env.UPASS} -p ${env.UPASS}"
+					sh "docker push ${dockerImage}"
 				}
       }
     }
