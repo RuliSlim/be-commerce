@@ -70,8 +70,8 @@ pipeline {
 			setBuildStatus("Build failed", "FAILURE");
     }
 		always {
-			sh "docker rmi ${dockerTag}"
-			sh "docker rmi ${tagVersion}"
+      // remove docker image that not running
+			sh "docker image prune -a"
 			sh "docker logout ${env.REGISTRY_URL}"
 			deleteDir()
 		}
