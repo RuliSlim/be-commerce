@@ -22,4 +22,4 @@ services:
     #   - ./src:/app/src
 
 volumes:
-  databse:
+  database:
