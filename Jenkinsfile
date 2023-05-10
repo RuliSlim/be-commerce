@@ -69,6 +69,7 @@ pipeline {
 		always {
 			sh "docker rmi ${dockerTag}"
 			sh "docker logout ${env.REGISTRY_URL}"
+			deleteDir()
 		}
   }
 }
