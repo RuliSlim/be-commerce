@@ -48,7 +48,7 @@ pipeline {
 					tagVersion = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
 					dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:latest"
 					sh "docker build -t ${tagVersion} ."
-					sh "docker tag ${dockerTag} ${tagVersion}"
+					sh "docker tag ${tagVersion} ${dockerTag}"
 				}
 			}
 		}
@@ -70,8 +70,8 @@ pipeline {
 			setBuildStatus("Build failed", "FAILURE");
     }
 		always {
-      // remove docker image that not running
-			sh "docker image prune -a"
+      // remove docker image that not running except node
+      sh 'docker image prune -a --filter "dangling=false" --filter "reference!=node:18-alpine"'
 			sh "docker logout ${env.REGISTRY_URL}"
 			deleteDir()
 		}
