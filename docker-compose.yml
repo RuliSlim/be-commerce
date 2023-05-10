@@ -15,7 +15,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: my-nestjs-app
+    image: be
     ports:
       - "3000:3000"
     # volumes:
