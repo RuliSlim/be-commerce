@@ -47,7 +47,7 @@ pipeline {
 					gitCommit = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 					tagVersion = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
 					dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:latest"
-					sh "docker build -t ${tagVersion}"
+					sh "docker build -t ${tagVersion} ."
 					sh "docker tag ${dockerTag} ${tagVersion}"
 				}
 			}
