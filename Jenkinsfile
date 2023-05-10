@@ -25,6 +25,7 @@ void setBuildStatus(String message, String state) {
 
 def gitCommit
 def dockerTag
+def tagVersion
 
 pipeline {
 	agent any
@@ -44,8 +45,10 @@ pipeline {
 			steps {
 				script {
 					gitCommit = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-					dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
-					dockerImage = docker.build "${dockerTag}"
+					tagVersion = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
+					dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:latest"
+					sh "docker build -t ${tagVersion}"
+					sh "docker tag ${dockerTag} ${tagVersion}"
 				}
 			}
 		}
@@ -68,6 +71,7 @@ pipeline {
     }
 		always {
 			sh "docker rmi ${dockerTag}"
+			sh "docker rmi ${tagVersion}"
 			sh "docker logout ${env.REGISTRY_URL}"
 			deleteDir()
 		}
