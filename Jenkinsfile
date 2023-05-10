@@ -65,15 +65,16 @@ pipeline {
   post {
     success {
 			setBuildStatus("Build succeeded", "SUCCESS");
+      deleteDir() // delete directory after sending the status
     }
     failure {
 			setBuildStatus("Build failed", "FAILURE");
+      deleteDir() // delete directory after sending the status
     }
 		always {
       // remove docker image that not running except node
       sh 'docker image prune -a --filter "dangling=false" --filter "reference!=node:18-alpine"'
 			sh "docker logout ${env.REGISTRY_URL}"
-			deleteDir()
 		}
   }
 }
