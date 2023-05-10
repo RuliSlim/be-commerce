@@ -80,7 +80,7 @@ pipeline {
     }
 		always {
       // remove docker image that not running except node
-      sh "docker image prune -af --filter dangling=false --filter 'reference!=node:18-alpine'"
+      sh "docker image prune -af"
 			sh "docker logout ${env.REGISTRY_URL}"
 		}
   }
