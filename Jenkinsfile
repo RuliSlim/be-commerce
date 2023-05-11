@@ -47,16 +47,7 @@ pipeline {
 					gitCommit = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 					tagVersion = "${env.REGISTRY_URL}/mirror/be-commerce:${gitCommit}"
 					dockerTag = "${env.REGISTRY_URL}/mirror/be-commerce:latest"
-          // dockerCompose(
-          //   buildArgs: [
-          //     "TAG=${tagVersion}"
-          //   ],
-          //   build: true,
-          //   file: 'docker-compose.yml',
-          //   projectName: 'be-commerce'
-          // )
-					sh "docker-compose build"
-					sh "docker tag be ${tagVersion}"
+					sh "docker build -t ${tagVersion} ."
 					sh "docker tag ${tagVersion} ${dockerTag}"
 				}
 			}
