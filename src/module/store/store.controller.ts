@@ -20,7 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { Store } from './entities/store.entity';
 
-@ApiTags('admin.store')
+@ApiTags('Admin.Store')
 @Controller('admin/store')
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
