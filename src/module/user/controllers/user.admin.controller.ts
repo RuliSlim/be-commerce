@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { Admin } from '../entities/user.admin.entity';
 
-@ApiTags('admin.user')
+@ApiTags('Admin.User')
 @Controller('admin/user')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
