@@ -1,4 +1,4 @@
-# NEST-ECOMMERCE
+# NEST-ECOMMERCE 
 _**Note: This is an ongoing project and new features and improvements will be added over time.**_
 
 This repository contains a demo project that showcases my skills in continuous integration and delivery (CI/CD) and project management. The project demonstrates the use of popular technologies such as Docker, Jenkins, and DigitalOcean Droplets to create a highly scalable and robust application.
