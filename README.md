@@ -6,15 +6,15 @@ This repository contains a demo project that showcases my skills in continuous i
 
 ## Access
 #### Jenkins
-url: http://157.230.252.102
-username: demo
-password: demo
+url: http://157.230.252.102  
+username: demo  
+password: demo  
 #### Swarmpit
-url: http://143.198.84.146
-username: demo
-password: demo
+url: http://143.198.84.146  
+username: demo  
+password: demo  
 #### Nest-ECommerce
-url: http://143.198.84.146/
+url: http://143.198.84.146:3000/api#/
 
 ## Purpose
 
