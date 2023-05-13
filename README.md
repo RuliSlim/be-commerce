@@ -1,7 +1,20 @@
+
 # NEST-ECOMMERCE 
 _**Note: This is an ongoing project and new features and improvements will be added over time.**_
 
 This repository contains a demo project that showcases my skills in continuous integration and delivery (CI/CD) and project management. The project demonstrates the use of popular technologies such as Docker, Jenkins, and DigitalOcean Droplets to create a highly scalable and robust application.
+
+## Access
+#### Jenkins
+url: http://157.230.252.102
+username: demo
+password: demo
+#### Swarmpit
+url: http://143.198.84.146
+username: demo
+password: demo
+#### Nest-ECommerce
+url: http://143.198.84.146/
 
 ## Purpose
 
